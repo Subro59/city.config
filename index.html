@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS Terminal Config Generator city</title>
+    <title>POS Terminal Config Generator v13.4</title>
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%2306b6d4' d='M160 160h192v192H160z'/%3E%3Cpath fill='%2306b6d4' d='M224 32c0-17.7 14.3-32 32-32s32 14.3 32 32V64H384c17.7 0 32 14.3 32 32V224h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H416V384c0 17.7-14.3 32-32 32H288v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H128c-17.7 0-32-14.3-32-32V288H64c-17.7 0-32-14.3-32-32s14.3-32 32-32H96V96c0-17.7 14.3-32 32-32H224V32zM160 128V384H352V128H160z'/%3E%3C/svg%3E">
     
@@ -111,7 +111,7 @@
             <div>
                 <div class="flex items-center space-x-2">
                     <h1 class="font-bold text-base md:text-lg text-slate-100 tracking-wide">POS TERMINAL CONFIG GENERATOR</h1>
-                    <span class="bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs px-2 py-0.5 rounded-full font-mono font-medium">CITY</span>
+                    <span class="bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs px-2 py-0.5 rounded-full font-mono font-medium">v13.4</span>
                 </div>
                 <p class="text-xs text-slate-400">Parse Excel data into HDT, TCT & parameter batch configs per TID</p>
             </div>
@@ -412,7 +412,7 @@
     <script>
         let MERCHANT_TEMPLATE = `HDT:TID=(tid):MID=(mid):1:1:1:0100:050:050:TK:115:90:100:6001000000
 TCT:ADDR1(36)=(address1):ADDR2(36)=(address2):ADDR3(36)=(address3):ADDR4(36)=(address4):ADDR5(36)=(address5):MERCHANTNAME1(24)=(dbaname1):MERCHANTNAME2(28)=(dbaname2):2489:0000:0000:0000:0000:24896925
-SUPPORTBIN:ENGINEERNAME=xx:ENGINEERMOBILE=xx:OFFICERNAME=xx:OFFICERMOBILE=xx:EMAIL=test.city@citybank.com
+SUPPORTBIN:ENGINEERNAME=xx:ENGINEERMOBILE=00:OFFICERNAME=xx:OFFICERMOBILE=00:EMAIL=test.city@citybank.com
 SIMBIN:(simbin)
 IPBIN:IP1=192.168.95.7,IP2=192.168.95.8:IP1=192.168.95.102,IP2=192.168.95.103:IP1=192.168.94.251,IP2=192.168.94.252:IP1=172.31.1.43,IP2=172.31.1.43:PORT1=2400,PORT2=2450:PORT1=2400,PORT2=2450:PORT1=2400,PORT2=2450:PORT1=2400,PORT2=2450
 TXN:SALE=1:VOID=1:QRSALE=0:MICRO ATM=0:EMI=(emiStatus):LOUNGE ACCESS=0:PREAUTH=0:TIPADJUST=0:TIPADJUSTOFF=0:TIPADJUSTON=0:TIPWITHSALE=0:SETTLEMENT=1:BALANCE=0:REFUND=0:SHOWTXN=0:LOGON=1:TRAFFIC ENCRYPTION=1:SALECOMP=0:SALECOMPOFF=0:SALECOMPON=0:OFFLINE=0:REPORT=1:TXN HISTORY=0
@@ -827,14 +827,14 @@ OTHERS:HISTORYMAXDAYS=180:BACKHOMETIMEOUT=5:QRDISPLAYTIMEOUT=30`;
 
         function getSimBinString(carrierName) {
             const c = String(carrierName || '').trim().toUpperCase();
-            if (c.includes('BANGLALINK')) {
+            if (c.includes('BANGLALINK') || c.includes('BL')) {
                 return "BANGLALINK=1:GRAMEENPHONE=0:ROBI=0:OTHERS=0";
             } else if (c.includes('GRAMEEN') || c.includes('GP')) {
                 return "BANGLALINK=0:GRAMEENPHONE=1:ROBI=0:OTHERS=0";
             } else if (c.includes('ROBI')) {
                 return "BANGLALINK=0:GRAMEENPHONE=0:ROBI=1:OTHERS=0";
             } else {
-                return "BANGLALINK=0:GRAMEENPHONE=0:ROBI=0:OTHERS=1";
+                return "BANGLALINK=0:GRAMEENPHONE=0:ROBI=0:OTHERS=0";
             }
         }
 
