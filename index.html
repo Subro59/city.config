@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS Terminal Config Generator v13.4</title>
+    <title>POS Terminal Config Generator city</title>
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%2306b6d4' d='M160 160h192v192H160z'/%3E%3Cpath fill='%2306b6d4' d='M224 32c0-17.7 14.3-32 32-32s32 14.3 32 32V64H384c17.7 0 32 14.3 32 32V224h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H416V384c0 17.7-14.3 32-32 32H288v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H128c-17.7 0-32-14.3-32-32V288H64c-17.7 0-32-14.3-32-32s14.3-32 32-32H96V96c0-17.7 14.3-32 32-32H224V32zM160 128V384H352V128H160z'/%3E%3C/svg%3E">
     
@@ -111,7 +111,7 @@
             <div>
                 <div class="flex items-center space-x-2">
                     <h1 class="font-bold text-base md:text-lg text-slate-100 tracking-wide">POS TERMINAL CONFIG GENERATOR</h1>
-                    <span class="bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs px-2 py-0.5 rounded-full font-mono font-medium">v13.4</span>
+                    <span class="bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs px-2 py-0.5 rounded-full font-mono font-medium">CITY BANK</span>
                 </div>
                 <p class="text-xs text-slate-400">Parse Excel data into HDT, TCT & parameter batch configs per TID</p>
             </div>
@@ -291,9 +291,9 @@
                             <span>Tenor Limit:</span>
                         </label>
                         <select id="selectTenor" onchange="handleTenorChange()" class="bg-slate-900 text-slate-200 font-mono text-xs border border-slate-700/80 rounded px-2 py-1 focus:outline-none focus:border-brand-500">
-                            <option value="3,6,9,12">3, 6, 9, 12 Months</option>
+                            <option value="3,6,9,12" selected>3, 6, 9, 12 Months</option>
                             <option value="3,6,9,12,18,24">3, 6, 9, 12, 18, 24 Months</option>
-                            <option value="3,6,9,12,18,24,30,36" selected>3, 6, 9, 12, 18, 24, 30, 36 Months</option>
+                            <option value="3,6,9,12,18,24,30,36">3, 6, 9, 12, 18, 24, 30, 36 Months</option>
                             <option value="3,6,9,12,18,24,30,36,48">3, 6, 9, 12, 18, 24, 30, 36, 48 Months</option>
                         </select>
                     </div>
@@ -475,7 +475,7 @@ OTHERS:HISTORYMAXDAYS=180:BACKHOMETIMEOUT=5:QRDISPLAYTIMEOUT=30`;
         let isEditing = false;
 
         let globalEmiMode = 0; 
-        let globalTenor = '3,6,9,12,18,24,36';
+        let globalTenor = '3,6,9,12';
         let targetEmiTids = []; 
 
         window.onload = function() {
