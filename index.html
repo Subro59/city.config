@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS Terminal Config Generator City</title>
+    <title>POS Terminal Config Generator v13.4</title>
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%2306b6d4' d='M160 160h192v192H160z'/%3E%3Cpath fill='%2306b6d4' d='M224 32c0-17.7 14.3-32 32-32s32 14.3 32 32V64H384c17.7 0 32 14.3 32 32V224h32c17.7 0 32 14.3 32 32s-14.3 32-32 32H416V384c0 17.7-14.3 32-32 32H288v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V416H128c-17.7 0-32-14.3-32-32V288H64c-17.7 0-32-14.3-32-32s14.3-32 32-32H96V96c0-17.7 14.3-32 32-32H224V32zM160 128V384H352V128H160z'/%3E%3C/svg%3E">
     
@@ -111,7 +111,7 @@
             <div>
                 <div class="flex items-center space-x-2">
                     <h1 class="font-bold text-base md:text-lg text-slate-100 tracking-wide">POS TERMINAL CONFIG GENERATOR</h1>
-                    <span class="bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs px-2 py-0.5 rounded-full font-mono font-medium">CITY BANK</span>
+                    <span class="bg-brand-500/10 text-brand-400 border border-brand-500/20 text-xs px-2 py-0.5 rounded-full font-mono font-medium">v13.4</span>
                 </div>
                 <p class="text-xs text-slate-400">Parse Excel data into HDT, TCT & parameter batch configs per TID</p>
             </div>
@@ -420,7 +420,7 @@ MRT:SALE:VOID:MICRO ATM:EMI SALE:BATCH REPORT+:REPRINT:SETTLEMENT:LOGON:LOUNGE A
 PMTTYP:CHIP=1:NFC=1:MICRO ATM NFC=0:MAG=1:SALEMANUAL=0:EMI MANUAL=0:LOUNGE ACCESS MANUAL=0:MICRO ATM MANUAL=0:PREAUTHMANUAL=0:FALLBACK=0:LAST4DIGIT=0:CVV2INPUT=0
 LIMIT:999:999:001:99999999:50000:500000:500000:(tenor)
 CARDEMICHARGEBIN:3,3:6,4:9,6.5:12,8:18,10.5:24,13:36,18
-SLIPPRINT:MERCHANTCOPY=1:CUSTOMERCOPY=0:LOGON=1:CARDDETAILSREPORT=0:SETTLEDETAILSREPORT=0:ERRORTXN=1:PRINTTVR=0:PRINTTSI=0:QRDSPLAY=0:TRANSACTIONSOUND=0:CARDDETAILS=1:PAPERLESS=0
+SLIPPRINT:MERCHANTCOPY=1:CUSTOMERCOPY=0:LOGON=1:CARDDETAILSREPORT=0:SETTLEDETAILSREPORT=0:ERRORTXN=1:PRINTTVR=0:PRINTTSI=0:QRDISPLAY=0:TRANSACTIONSOUND=0:CARDDETAILS=1:PAPERLESS=0
 PRINTLOGO:BANKLOGO=1:MERCHANTLOGO=0
 EXPMASKING:EXPMASKMC=0:EXPMASKCC=0:EXPMASKDT=0:EXPMASKPREAUTH=0:EXPMASKDISP=0:EXPMASKSHOWTXN=0:EXPMASKEMI=0:EXPMASKERRRP=0
 PANMASKING:PANMASKMC=1:PANMASKCC=0:PANMASKDT=1:PANMASKPREAUTH=1:PANMASKDISP=1:PANMASKSHOWTXN=1:PANMASKEMI=1:PANMASKERRRP=1
@@ -588,7 +588,6 @@ OTHERS:HISTORYMAXDAYS=180:BACKHOMETIMEOUT=5:QRDISPLAYTIMEOUT=30`;
                 const row = rawData[rIdx];
                 if (!row || row.length === 0) continue;
 
-                // Clean header row values thoroughly
                 const cleanRow = row.map(c => String(c || '').replace(/[\s\t\u00A0]+/g, ' ').trim());
                 const rowStrJoined = cleanRow.map(c => c.toUpperCase()).join(' ');
                 
@@ -624,7 +623,6 @@ OTHERS:HISTORYMAXDAYS=180:BACKHOMETIMEOUT=5:QRDISPLAYTIMEOUT=30`;
                     }
 
                     currentHeaderRowIdx = rIdx;
-                    // Ensure each header is trimmed and sanitized correctly
                     currentHeaders = row.map(h => String(h || '').replace(/[\s\t\u00A0]+/g, ' ').trim()).filter(h => h !== '');
                     
                     let dataRows = [];
@@ -639,7 +637,6 @@ OTHERS:HISTORYMAXDAYS=180:BACKHOMETIMEOUT=5:QRDISPLAYTIMEOUT=30`;
 
                         let rowObj = {};
                         currentHeaders.forEach((h, colIdx) => {
-                            // Map row values using column index from raw row
                             let val = subRow[colIdx];
                             rowObj[h] = val !== undefined ? val : '';
                         });
@@ -750,7 +747,6 @@ OTHERS:HISTORYMAXDAYS=180:BACKHOMETIMEOUT=5:QRDISPLAYTIMEOUT=30`;
                 return '';
             };
 
-            // Strict matching rules as requested
             const tidMatch = findExactHeader(['TID', 'TERMINAL ID']) || findHeaderExcluding(['TID'], ['OLD', 'NEW', 'SUB', 'ADMIN']);
             const midMatch = findExactHeader(['MID', 'MERCHANT ID']) || findHeaderExcluding(['MID'], ['OLD', 'SUB', 'ADMIN']);
             const nameMatch = findExactHeader(['DBA NAME', 'DBA', 'STORE NAME']) || findHeaderExcluding(['DBA NAME', 'DBA'], ['MERCHANT NAME', 'SERIAL']);
@@ -867,7 +863,6 @@ OTHERS:HISTORYMAXDAYS=180:BACKHOMETIMEOUT=5:QRDISPLAYTIMEOUT=30`;
 
         function chunkAddress(address, maxLenPerLine = 29, maxTotalChars = 145, hasDbaOverflow = false) {
             let str = String(address || '').trim();
-            // Cap total address length to 145 characters max
             if (str.length > maxTotalChars) {
                 str = str.substring(0, maxTotalChars).trim();
             }
@@ -876,7 +871,7 @@ OTHERS:HISTORYMAXDAYS=180:BACKHOMETIMEOUT=5:QRDISPLAYTIMEOUT=30`;
             if (str === '') words = [];
 
             let lines = ['', '', '', '', ''];
-            let currentLineIdx = hasDbaOverflow ? 1 : 0; // If DBA overflowed into ADDR1, address starts at ADDR2 (index 1)
+            let currentLineIdx = hasDbaOverflow ? 1 : 0; 
             
             for (let word of words) {
                 if (currentLineIdx >= 5) {
@@ -916,7 +911,13 @@ OTHERS:HISTORYMAXDAYS=180:BACKHOMETIMEOUT=5:QRDISPLAYTIMEOUT=30`;
             const colSimCarrier = document.getElementById('colSimCarrier').value;
 
             const tid = String(rowObj[colTid] || '00000000').trim();
-            const mid = String(rowObj[colMid] || '000000000000000').trim();
+            
+            let rawMid = String(rowObj[colMid] || '000000000000000').trim();
+            if (rawMid.length < 15) {
+                rawMid = rawMid.padStart(15, '0');
+            }
+            const mid = rawMid;
+
             const entityName = String(rowObj[colEntityName] || '').trim();
             const address = String(rowObj[colAddress] || '').trim();
             const simCarrier = String(rowObj[colSimCarrier] || 'BANGLALINK').trim();
@@ -987,7 +988,6 @@ OTHERS:HISTORYMAXDAYS=180:BACKHOMETIMEOUT=5:QRDISPLAYTIMEOUT=30`;
                 const addr = String(r[colAddress] || '');
                 const simCarrier = String(r[colSimCarrier] || '');
                 
-                // Get evaluated EMI status for this terminal
                 const generated = generateConfigFile(r);
                 const isEmiActive = generated.emiStatus === 1;
 
